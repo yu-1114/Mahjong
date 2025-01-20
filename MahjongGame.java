@@ -6,9 +6,11 @@ public class MahjongGame {
         List<Tile> deck = Tiles.createFullDeck();
 
         Collections.shuffle(deck);
-        System.out.println("シャッフルされた山牌: " + deck);
+        System.out.println("山牌: " + deck);
 
         List<Tile> hand = deck.subList(0, 14);
+
+        Collections.sort(hand);
         System.out.println("手牌: " + hand);
     }
 }

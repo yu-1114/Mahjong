@@ -14,4 +14,13 @@ public class HonorTile extends Tile {
     public String toString() {
         return name;
     }
+
+    @Override
+    public int compareTo(Tile other) {
+        if (other instanceof HonorTile) {
+            HonorTile otherHonor = (HonorTile) other;
+            return getHonorName(this.name) - getHonorName(otherHonor.name);
+        }
+        return super.compareTo(other);
+    }
 }
