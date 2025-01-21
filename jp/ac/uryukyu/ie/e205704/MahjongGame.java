@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class MahjongGame{
-    public static void main(String[] args) {
+    public void start() {
         List<Tile> deck = Tiles.createFullDeck();
         Collections.shuffle(deck);
         List<Tile> hand = new ArrayList<>(deck.subList(0, 14));
