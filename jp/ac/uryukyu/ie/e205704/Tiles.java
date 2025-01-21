@@ -1,3 +1,4 @@
+package jp.ac.uryukyu.ie.e205704;
 import java.util.ArrayList;
 import java.util.List;
 

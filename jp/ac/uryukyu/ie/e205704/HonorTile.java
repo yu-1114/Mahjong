@@ -1,3 +1,5 @@
+package jp.ac.uryukyu.ie.e205704;
+
 public class HonorTile extends Tile {
     private String name;
 
@@ -6,6 +8,7 @@ public class HonorTile extends Tile {
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
     }

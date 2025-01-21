@@ -1,6 +1,9 @@
+package jp.ac.uryukyu.ie.e205704;
+import java.util.Objects;
+
 public class Tile implements Comparable<Tile> {
     private String type;
-    private int number;
+    protected int number;
 
     public Tile(String type, int number) {
         this.type = type;
@@ -13,6 +16,36 @@ public class Tile implements Comparable<Tile> {
 
     public int getNumber() {
         return number;
+    }
+
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        if (this instanceof HonorTile && obj instanceof HonorTile) {
+            HonorTile otherHonorTile = (HonorTile) obj;
+            return this.getName().equals(otherHonorTile.getName());//getHonorOrder(this.number) == getHonorOrder(otherHonorTile.number);
+        }
+        Tile otherTile = (Tile) obj;
+        if (this.type.equals("字") && otherTile.type.equals("字")) {
+            return this.getName().equals(((HonorTile) otherTile).getName());//getHonorOrder(this.number) == getHonorOrder(otherTile.number);
+        } else {
+            return this.type.equals(otherTile.type) && this.number == otherTile.number;
+        }
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, number);
     }
 
     @Override
@@ -40,6 +73,10 @@ public class Tile implements Comparable<Tile> {
 
     @Override
     public int compareTo(Tile other) {
+        if (this instanceof HonorTile && other instanceof HonorTile) {
+            return getHonorOrder(this.number) - getHonorOrder(other.number);
+        }
+
         int typeOrder = getTypeOrder(this.type) - getTypeOrder(other.type);
         if (typeOrder != 0) {
             return typeOrder;
@@ -47,10 +84,6 @@ public class Tile implements Comparable<Tile> {
 
         if (!this.type.equals("字") && !other.type.equals("字")) {
             return this.number - other.number;
-        }
-
-        if (this.type.equals("字") && other.type.equals("字")) {
-            return getHonorOrder(this.number) - getHonorOrder(other.number);
         }
 
         return this.type.equals("字") ? 1 : -1;
@@ -67,6 +100,14 @@ public class Tile implements Comparable<Tile> {
     }
 
     protected int getHonorOrder(int number) {
+        if (this instanceof HonorTile) {
+            return getHonorName(((HonorTile) this).getName()); // nameで判断
+        }
+
+        if (number == 0) {
+            throw new IllegalArgumentException("Honor tile number cannot be 0.");
+        }
+        
         switch (number) {
             case 1: return 1;
             case 2: return 2;
